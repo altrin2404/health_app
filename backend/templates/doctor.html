@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Doctor Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    table { width: 90%; border-collapse: collapse; margin: auto; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 12px; text-align: center; }
+    th { background-color: #f4f4f4; }
+    .low { color: green; font-weight: bold; }
+    .high { color: red; font-weight: bold; }
+    .btn-home { display: inline-block; margin: 20px auto; padding: 12px 25px; background-color: #4caf50; color: white; border: none; border-radius: 8px; text-decoration: none; font-size: 16px; cursor: pointer; }
+    .btn-home:hover { background-color: #45a049; }
+  </style>
+</head>
+<body>
+  <h2 style="text-align:center;">Doctor Dashboard</h2>
+  <div style="text-align:center;">
+    <a href="/" class="btn-home">Home</a>
+  </div>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Temperature (°F)</th>
+      <th>Heart Rate (bpm)</th>
+      <th>ECG</th>
+      <th>Risk</th>
+    </tr>
+    {% for p in patients %}
+    <tr>
+      <td>{{ p.name }}</td>
+      <td>{{ p.age }}</td>
+      <td>{{ p.temp }}</td>
+      <td>{{ p.heartrate }}</td>
+      <td>{{ p.ecg }}</td>
+      <td class="{% if p.risk == 'Low Risk' %}low{% else %}high{% endif %}">
+        {{ p.risk }}
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>

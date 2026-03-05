@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Patient Result</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #eef2f3, #d9e2ec);
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 520px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      text-align: center;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    h2 {
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 1.05rem;
+      margin: 8px 0;
+    }
+
+    /* ================= RISK COLORS ================= */
+    .risk-low {
+      color: #2e7d32;
+      font-weight: bold;
+    }
+
+    .risk-high {
+      color: #c62828;
+      font-weight: bold;
+    }
+
+    /* ================= MESSAGE CARD ================= */
+    .message-box {
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 12px;
+      font-size: 1rem;
+      line-height: 1.5;
+      animation: slideUp 0.6s ease;
+    }
+
+    .message-low {
+      background: #e8f5e9;
+      border-left: 6px solid #2e7d32;
+      color: #1b5e20;
+    }
+
+    .message-high {
+      background: #fdecea;
+      border-left: 6px solid #c62828;
+      color: #b71c1c;
+      animation: pulse 1.5s infinite;
+    }
+
+    .icon {
+      font-size: 2.2rem;
+      margin-bottom: 8px;
+    }
+
+    a {
+      display: inline-block;
+      margin: 12px 10px 0;
+      padding: 10px 22px;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    a:hover {
+      background-color: #0056b3;
+      transform: translateY(-2px);
+    }
+
+    /* ================= ANIMATIONS ================= */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(198,40,40,0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(198,40,40,0); }
+      100% { box-shadow: 0 0 0 0 rgba(198,40,40,0); }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Patient Health Result</h2>
+
+    <p><strong>Name:</strong> {{ patient.name }}</p>
+    <p><strong>Age:</strong> {{ patient.age }}</p>
+    <p><strong>Temperature:</strong> {{ patient.temp }} °F</p>
+    <p><strong>Heart Rate:</strong> {{ patient.heartrate }} bpm</p>
+    <p><strong>ECG:</strong> {{ patient.ecg }}</p>
+
+    <p>
+      <strong>Risk Status:</strong>
+      <span class="{% if patient.risk == 'Low Risk' %}risk-low{% else %}risk-high{% endif %}">
+        {{ patient.risk }}
+      </span>
+    </p>
+
+    <!-- 🔔 INTERACTIVE MESSAGE -->
+    <div class="message-box {% if patient.risk == 'Low Risk' %}message-low{% else %}message-high{% endif %}">
+      <div class="icon">
+        {% if patient.risk == 'Low Risk' %}
+          ✅
+        {% else %}
+          ⚠️
+        {% endif %}
+      </div>
+      {{ message }}
+    </div>
+
+    <a href="/patient">Check Another Patient</a>
+    <a href="/">Back to Home</a>
+  </div>
+</body>
+</html>
